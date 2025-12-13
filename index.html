@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>電車男電動滑板車維修單</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+        /* Custom File Input Styling */
+        .file-drop-area {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 20px;
+            border: 2px dashed #cbd5e1;
+            border-radius: 0.75rem;
+            transition: 0.2s;
+            cursor: pointer;
+            background-color: #f8fafc;
+        }
+        .file-drop-area:hover {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        .file-drop-area.active {
+            border-color: #2563eb;
+            background-color: #dbeafe;
+        }
+        /* Animation */
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-enter {
+            animation: fade-in-up 0.6s ease-out forwards;
+        }
+        /* Loading Spinner */
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 3px solid #ffffff; /* White for better visibility on button */
+            width: 20px;
+            height: 20px;
+            -webkit-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex items-center justify-center p-4">
+
+    <!-- Main Container -->
+    <div class="w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden animate-enter">
+        
+        <!-- Header -->
+        <div class="gradient-bg p-8 text-center text-white relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-32 h-32 bg-white opacity-10 rounded-full -translate-x-10 -translate-y-10"></div>
+            <div class="absolute bottom-0 right-0 w-24 h-24 bg-white opacity-10 rounded-full translate-x-10 translate-y-10"></div>
+            
+            <div class="relative z-10">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-white bg-opacity-20 rounded-full mb-4 backdrop-blur-sm border border-white/30">
+                    <i class="fa-solid fa-screwdriver-wrench text-2xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold tracking-wider">電車男</h1>
+                <p class="text-blue-100 text-sm mt-1">電動滑板車專業維修中心</p>
+            </div>
+        </div>
+
+        <!-- Form Section -->
+        <div class="p-6 sm:p-8">
+            <form id="repairForm" class="space-y-5">
+                
+                <!-- Name Field -->
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">大名 <span class="text-red-500">*</span></label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-user text-gray-400"></i>
+                        </div>
+                        <input type="text" id="name" required class="pl-10 w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="請輸入您的稱呼">
+                    </div>
+                </div>
+
+                <!-- LINE ID Field -->
+                <div>
+                    <label for="lineId" class="block text-sm font-medium text-gray-700 mb-1">LINE ID <span class="text-red-500">*</span></label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-brands fa-line text-green-500"></i>
+                        </div>
+                        <input type="text" id="lineId" required class="pl-10 w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all" placeholder="方便我們聯繫您">
+                    </div>
+                </div>
+
+                <!-- Phone Field -->
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">手機號碼 <span class="text-red-500">*</span></label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-mobile-screen text-gray-400"></i>
+                        </div>
+                        <input type="tel" id="phone" required pattern="[0-9]*" class="pl-10 w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="09xx-xxx-xxx">
+                    </div>
+                </div>
+
+                <!-- Model Field -->
+                <div>
+                    <label for="model" class="block text-sm font-medium text-gray-700 mb-1">車型號</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-bolt text-yellow-500"></i>
+                        </div>
+                        <input type="text" id="model" list="modelOptions" class="pl-10 w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="例如：小米 Pro 2, Ninebot Max...">
+                        <datalist id="modelOptions">
+                            <option value="小米 M365">
+                            <option value="小米 Pro 2">
+                            <option value="Ninebot Max G30">
+                            <option value="Segway F系列">
+                            <option value="Inokim">
+                            <option value="Zero 10X">
+                        </datalist>
+                    </div>
+                </div>
+
+                <!-- Issue Description -->
+                <div>
+                    <label for="issue" class="block text-sm font-medium text-gray-700 mb-1">故障情況描述 <span class="text-red-500">*</span></label>
+                    <textarea id="issue" required rows="3" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none" placeholder="請簡述遇到的問題，例如：無法開機、後輪異音..."></textarea>
+                </div>
+
+                <!-- Photo Upload -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">照片上傳 (選填，將備份至雲端)</label>
+                    <div class="file-drop-area" id="dropZone">
+                        <input type="file" id="photo" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                        <div class="text-center pointer-events-none">
+                            <div id="uploadPlaceholder">
+                                <i class="fa-solid fa-cloud-arrow-up text-3xl text-blue-400 mb-2"></i>
+                                <p class="text-sm text-gray-500">點擊或拖放照片至此</p>
+                                <p class="text-xs text-gray-400 mt-1">支援 JPG, PNG (建議小於 3MB)</p>
+                            </div>
+                            <img id="preview" src="#" alt="預覽" class="hidden max-h-48 rounded-lg mx-auto shadow-sm object-contain">
+                        </div>
+                    </div>
+                    <p id="fileName" class="text-xs text-center text-gray-500 mt-2 h-4"></p>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitBtn" class="w-full gradient-bg text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transform active:scale-[0.98] transition-all flex justify-center items-center gap-2">
+                    <span>提交維修單</span>
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+
+            </form>
+        </div>
+        
+        <!-- Footer -->
+        <div class="bg-gray-50 px-6 py-4 text-center border-t border-gray-100">
+            <p class="text-xs text-gray-400">© 2025 電車男電動滑板車維修中心</p>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl p-8 max-w-sm w-[90%] text-center shadow-2xl transform scale-95 transition-transform duration-300" id="modalContent">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 text-green-500">
+                <i class="fa-solid fa-check text-3xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">提交成功！</h3>
+            <p id="modalSubText" class="text-gray-600 text-sm mb-6">資料已安全儲存至我們的系統。</p>
+            <p class="text-gray-500 text-xs mb-4">您可以複製下方內容傳給我們 LINE 官方帳號通知我們。</p>
+            
+            <textarea id="resultText" readonly class="w-full h-32 text-xs bg-gray-50 border border-gray-200 rounded-lg p-3 mb-4 text-gray-600 focus:outline-none"></textarea>
+
+            <div class="flex flex-col gap-3">
+                <button id="copyBtn" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl shadow transition-colors flex items-center justify-center gap-2">
+                    <i class="fa-regular fa-copy"></i>
+                    複製通知內容
+                </button>
+                <button id="closeModal" class="w-full text-gray-400 text-sm py-2 hover:text-gray-600">
+                    關閉視窗
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ⚠️ 重要：請在此處填入您的 Google Apps Script 網頁應用程式網址 ⚠️
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyTZlmbd1un7EGn__bvvdEusixC3cjR0X8dB_13Pv7p-fdlOhJsmcMj4_0kML4oIxV8uA/exec'; 
+
+        // File Upload Logic
+        const fileInput = document.getElementById('photo');
+        const preview = document.getElementById('preview');
+        const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+        const fileNameDisplay = document.getElementById('fileName');
+        const dropZone = document.getElementById('dropZone');
+
+        // Drag and drop visual effects
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropZone.classList.add('active');
+            }, false);
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('active');
+            }, false);
+        });
+
+        fileInput.addEventListener('change', function(e) {
+            handleFile(this.files[0]);
+        });
+
+        dropZone.addEventListener('drop', function(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            fileInput.files = files; // Update input files
+            handleFile(files[0]);
+        });
+
+        function handleFile(file) {
+            if (file) {
+                // Check file size (limit to 3MB roughly to prevent Google Apps Script timeout)
+                if(file.size > 3 * 1024 * 1024) {
+                    alert('圖片檔案太大！為了確保上傳成功，請選擇小於 3MB 的照片。');
+                    fileInput.value = ""; // Clear
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    uploadPlaceholder.classList.add('hidden');
+                }
+                reader.readAsDataURL(file);
+                fileNameDisplay.textContent = file.name;
+            } else {
+                preview.classList.add('hidden');
+                uploadPlaceholder.classList.remove('hidden');
+                preview.src = '#';
+                fileNameDisplay.textContent = '';
+            }
+        }
+
+        // Form Submission Logic
+        const form = document.getElementById('repairForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successModal = document.getElementById('successModal');
+        const modalContent = document.getElementById('modalContent');
+        const modalSubText = document.getElementById('modalSubText');
+        const resultText = document.getElementById('resultText');
+        const copyBtn = document.getElementById('copyBtn');
+        const closeModal = document.getElementById('closeModal');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (SCRIPT_URL.includes('請將_APPS_SCRIPT')) {
+                alert('系統設定錯誤：尚未設定後端網址。');
+                return;
+            }
+
+            // Loading State
+            const originalBtnContent = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loader"></span> <span class="ml-2">資料上傳中...</span>';
+            submitBtn.classList.add('opacity-75');
+
+            // Collect Data
+            const formData = {
+                name: document.getElementById('name').value,
+                lineId: document.getElementById('lineId').value,
+                phone: document.getElementById('phone').value,
+                model: document.getElementById('model').value || '未提供',
+                issue: document.getElementById('issue').value,
+                image: null,
+                imageName: null,
+                imageMimeType: null
+            };
+
+            // Process Image
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                const base64Promise = new Promise((resolve) => {
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(file);
+                });
+                formData.image = await base64Promise;
+                formData.imageName = file.name;
+                formData.imageMimeType = file.type;
+            }
+
+            try {
+                // 嘗試發送資料
+                const result = await sendDataToSheet(formData);
+
+                // 準備顯示訊息
+                let hasPhotoText = "（無附圖）";
+                if (formData.image) {
+                    if (result.status === 'success') {
+                        hasPhotoText = "（已上傳並備份）";
+                    } else {
+                        hasPhotoText = "（已上傳 - 請查閱後台）";
+                    }
+                }
+
+                const message = `【電車男維修單】
+------------------------
+👤 大名：${formData.name}
+📱 LINE ID：${formData.lineId}
+📞 手機：${formData.phone}
+🛴 車型號：${formData.model}
+🔧 故障情況：${formData.issue}
+📷 照片：${hasPhotoText}
+------------------------
+資料已線上填寫完畢，請協助評估，謝謝！`;
+
+                resultText.value = message;
+                
+                // Show Modal
+                modalSubText.innerText = result.status === 'success' 
+                    ? "資料已成功儲存至我們的系統。" 
+                    : "資料已送出，但因網路因素無法確認回傳結果，請直接複製下方訊息通知我們即可。";
+                
+                successModal.classList.remove('hidden');
+                setTimeout(() => {
+                    successModal.classList.remove('opacity-0');
+                    modalContent.classList.remove('scale-95');
+                    modalContent.classList.add('scale-100');
+                }, 10);
+                
+                form.reset();
+                handleFile(null);
+
+            } catch (error) {
+                console.error('Final Error:', error);
+                alert('上傳失敗！\n\n如果您的 Google Sheet 沒有收到資料，極大可能是後端權限設定問題。\n\n請檢查 Apps Script 是否已部署為：「建立新版本」且「誰可以存取：任何人」。');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnContent;
+                submitBtn.classList.remove('opacity-75');
+            }
+        });
+
+        // Robust Send Function
+        async function sendDataToSheet(data) {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
+
+            const fetchOptions = {
+                method: 'POST',
+                body: JSON.stringify(data),
+                redirect: 'follow', // 關鍵：Apps Script 會 302 重導向
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8",
+                },
+                signal: controller.signal
+            };
+
+            try {
+                // 第一次嘗試：標準 CORS 模式
+                const response = await fetch(SCRIPT_URL, fetchOptions);
+                clearTimeout(timeoutId);
+                
+                if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+                return { status: 'success', data: await response.json() };
+
+            } catch (e) {
+                clearTimeout(timeoutId);
+                console.warn("標準上傳失敗，嘗試備用模式...", e);
+                
+                // 第二次嘗試：no-cors 模式 (盲送)
+                try {
+                    await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        mode: 'no-cors', // 關鍵：忽略 CORS 錯誤
+                        redirect: 'follow',
+                        headers: { "Content-Type": "text/plain;charset=utf-8" }
+                    });
+                    // 如果沒報錯，我們假設成功送出了
+                    return { status: 'fallback_success' };
+                } catch (fallbackError) {
+                    throw new Error("備用上傳也失敗，請檢查網路。");
+                }
+            }
+        }
+
+        // Copy Function
+        copyBtn.addEventListener('click', function() {
+            // 選取文字
+            resultText.select();
+            resultText.setSelectionRange(0, 99999); // 針對手機版優化
+            
+            // 方法 1: 優先嘗試 document.execCommand (兼容性較好)
+            let success = false;
+            try {
+                success = document.execCommand('copy');
+            } catch (err) {
+                console.warn('execCommand error:', err);
+            }
+
+            if (success) {
+                showCopySuccess();
+            } else {
+                // 方法 2: 嘗試 Clipboard API
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(resultText.value)
+                        .then(() => showCopySuccess())
+                        .catch(err => {
+                            console.error('Clipboard API Error:', err);
+                            alert('系統限制無法自動複製，請您手動選取並複製文字框內的內容。');
+                        });
+                } else {
+                    alert('系統限制無法自動複製，請您手動選取並複製文字框內的內容。');
+                }
+            }
+        });
+
+        function showCopySuccess() {
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> 已複製！';
+            copyBtn.classList.remove('bg-green-500', 'hover:bg-green-600');
+            copyBtn.classList.add('bg-gray-800', 'hover:bg-gray-900');
+            
+            setTimeout(() => {
+                copyBtn.innerHTML = originalText;
+                copyBtn.classList.add('bg-green-500', 'hover:bg-green-600');
+                copyBtn.classList.remove('bg-gray-800', 'hover:bg-gray-900');
+            }, 2000);
+        }
+
+        // Close Modal
+        closeModal.addEventListener('click', function() {
+            successModal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                successModal.classList.add('hidden');
+            }, 300);
+        });
+
+        successModal.addEventListener('click', function(e) {
+            if (e.target === successModal) {
+                closeModal.click();
+            }
+        });
+    </script>
+</body>
+</html>

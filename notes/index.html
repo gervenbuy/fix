@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電車男 維修筆記目錄</title>
+<style>
+  :root{
+    --navy:#0a1628;
+    --navy2:#132038;
+    --gold:#c9a24b;
+    --gold-light:#e8cd8a;
+    --text:#e8e8ec;
+    --muted:#9aa5b8;
+    --card:#101f38;
+    --border:#24354f;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    background:linear-gradient(180deg,var(--navy) 0%, #0d1b30 100%);
+    color:var(--text);
+    line-height:1.7;
+    padding:0 0 60px;
+  }
+  header{
+    padding:40px 20px 28px;
+    text-align:center;
+    border-bottom:1px solid var(--border);
+    background:radial-gradient(circle at top, rgba(201,162,75,0.08), transparent 60%);
+  }
+  .back{
+    display:inline-block;
+    margin-bottom:12px;
+    color:var(--muted);
+    font-size:0.85rem;
+    text-decoration:none;
+  }
+  .back:hover{color:var(--gold-light);}
+  header h1{
+    margin:0;
+    font-size:1.6rem;
+    color:var(--gold-light);
+    letter-spacing:1px;
+  }
+  .container{
+    max-width:760px;
+    margin:0 auto;
+    padding:0 18px;
+  }
+  .section{
+    margin-top:36px;
+  }
+  .section-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:1.15rem;
+    color:var(--gold);
+    font-weight:700;
+    margin-bottom:14px;
+    padding-bottom:8px;
+    border-bottom:2px solid var(--gold);
+  }
+  .badge{
+    background:var(--gold);
+    color:var(--navy);
+    font-size:0.75rem;
+    font-weight:700;
+    padding:2px 9px;
+    border-radius:20px;
+    flex-shrink:0;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:18px 20px;
+    margin-bottom:14px;
+  }
+  .card h3{
+    margin:0 0 8px;
+    font-size:1rem;
+    color:var(--gold-light);
+  }
+  .card p, .card ol, .card ul{
+    margin:0;
+    color:var(--text);
+    font-size:0.94rem;
+  }
+  .card ol, .card ul{
+    padding-left:1.2em;
+  }
+  .card li{
+    margin-bottom:6px;
+  }
+  .card li:last-child{margin-bottom:0;}
+  .note{
+    margin-top:10px;
+    font-size:0.85rem;
+    color:var(--muted);
+    background:rgba(201,162,75,0.08);
+    border-left:3px solid var(--gold);
+    padding:8px 12px;
+    border-radius:4px;
+  }
+  .warn{
+    margin-top:10px;
+    font-size:0.85rem;
+    color:#f2c9a0;
+    background:rgba(230,120,60,0.1);
+    border-left:3px solid #d98a4a;
+    padding:8px 12px;
+    border-radius:4px;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:0.92rem;
+  }
+  th, td{
+    padding:10px 12px;
+    text-align:left;
+    border-bottom:1px solid var(--border);
+  }
+  th{
+    color:var(--gold-light);
+    font-weight:700;
+    background:rgba(201,162,75,0.06);
+  }
+  td.code{
+    font-family:"SFMono-Regular",Consolas,monospace;
+    color:var(--gold-light);
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .steps{
+    counter-reset: step;
+    list-style:none;
+    padding-left:0;
+  }
+  .steps li{
+    position:relative;
+    padding-left:34px;
+    margin-bottom:12px;
+  }
+  .steps li::before{
+    counter-increment: step;
+    content: counter(step);
+    position:absolute;
+    left:0;
+    top:0;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:var(--gold);
+    color:var(--navy);
+    font-weight:700;
+    font-size:0.8rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .pill-row{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:10px;
+  }
+  .pill{
+    background:var(--navy2);
+    border:1px solid var(--gold);
+    color:var(--gold-light);
+    padding:4px 12px;
+    border-radius:20px;
+    font-size:0.82rem;
+    font-family:monospace;
+  }
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:0.8rem;
+    margin-top:50px;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+  }
+</style>
+<style>
+  .entry{display:block;text-decoration:none;color:inherit;transition:border-color .2s;}
+  .entry:hover{border-color:var(--gold);}
+  .entry .meta{margin-top:6px;font-size:0.82rem;color:var(--muted);}
+  .empty{color:var(--muted);font-size:0.9rem;}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back" href="../index.html">← 回維修單</a>
+  <h1>電車男　維修筆記目錄</h1>
+</header>
+
+<div class="container">
+
+  <div class="section">
+    <div class="section-title"><span class="badge">車型</span> 儀表／參數設定</div>
+
+    <a class="card entry" href="t1-t3/meter-settings.html">
+      <h3>T1 / T3 頂配版　儀表後台參數設定手冊</h3>
+      <p>開機方式、開機密碼設定與取消、限速模式切換、P08／P09／P10 參數對照、快速解除限速。</p>
+      <div class="pill-row"><span class="pill">T1</span><span class="pill">T3</span><span class="pill">儀表</span><span class="pill">限速</span></div>
+    </a>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="badge">SOP</span> 故障排除</div>
+    <p class="empty">尚未建立。新增方式請參考 README 與 notes/_template/note.html。</p>
+  </div>
+
+</div>
+
+<footer>電車男電動滑板車維修中心　內部維修筆記</footer>
+
+</body>
+</html>

@@ -20,6 +20,7 @@ notes/
 
 - **T1 / T3 頂配版 儀表後台參數設定手冊** — `notes/t1-t3/meter-settings.html`
   （原本放在 `gervenbuy/t3-setting`，已整合進來）
+- **36V 外掛電池包 規格** — `notes/parts/36v-battery-pack.html`
 
 ## 新增一篇筆記
 
